@@ -3,836 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short2Crypto - Earn Crypto Playing Fun Games!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Light Mode Game Theme Colors (Adapted for Landing Page) */
-            --lp-bg-start: #e0f7fa;       /* Lighter sky blue for light mode */
-            --lp-bg-end: #b2ebf2;         /* Slightly deeper light sky blue */
-            --lp-primary-text: #2c3e50;   /* Darker text for light backgrounds */
-            --lp-secondary-text: #527080; /* Darker muted for light theme */
-
-            --game-title-blue: #29b6f6;     /* Bright Blue */
-            --game-title-red: #ef5350;       /* Bright Red */
-            --game-title-yellow: #ffeb3b;    /* Bright Yellow */
-            --game-accent-green: #66bb6a;    /* Bright Green */
-            --game-accent-orange: #ffa726;   /* Bright Orange */
-            --pink: #ec407a;
-
-            --lp-card-bg: rgba(255, 255, 255, 0.9); /* Whiteish, slightly more opaque for readability */
-            --lp-card-border: rgba(0, 0, 0, 0.08);   /* Subtle dark border */
-            --lp-card-shadow: 0 5px 20px rgba(0,0,0,0.07); /* Slightly softer, more spread shadow */
-
-            --border-radius-sm: 8px;
-            --border-radius-md: 15px;
-            --border-radius-lg: 25px;
-
-            --font-family-title: 'Luckiest Guy', cursive;
-            --font-family-body: 'Poppins', sans-serif;
-
-            --lp-section-padding: 50px 15px; /* Mobile first padding */
-
-            --smooth-bezier: cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-family-body);
-            background: linear-gradient(180deg, var(--lp-bg-start) 0%, var(--lp-bg-end) 100%);
-            color: var(--lp-primary-text);
-            line-height: 1.7;
-            overflow-x: hidden;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Floating Clouds Background */
-        body::before, body::after {
-            content: ''; position: absolute; border-radius: 50%;
-            background: rgba(0, 162, 199, 0.05);
-            opacity: 0.6; z-index: -1;
-            pointer-events: none;
-        }
-        body::before { width: 300px; height: 300px; top: 10%; left: -120px; animation: floatCloud 45s infinite linear;}
-        body::after { width: 180px; height: 180px; bottom: 15%; right: -70px; animation: floatCloud 55s infinite linear reverse;}
-
-        @keyframes floatCloud {
-            0% { transform: translateX(0px) translateY(0px); } 25% { transform: translateX(20px) translateY(-15px); }
-            50% { transform: translateX(0px) translateY(-30px); } 75% { transform: translateX(-20px) translateY(-15px); }
-            100% { transform: translateX(0px) translateY(0px); }
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* Navigation */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background: rgba(224, 247, 250, 0.75); /* Slightly more transparency */
-            backdrop-filter: blur(10px); /* Increased blur */
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        }
-
-        .navbar .logo {
-            font-family: var(--font-family-title);
-            font-size: 1.6em;
-            color: var(--lp-primary-text);
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.6);
-        }
-        .logo .part1 { color: var(--game-title-blue); }
-        .logo .vs { color: var(--lp-primary-text); font-size: 0.8em; margin: 0 1px; }
-        .logo .part2 { color: var(--game-title-red); }
-
-        /* General Button Style */
-        .btn {
-            font-family: var(--font-family-body);
-            font-weight: 600;
-            display: inline-block;
-            padding: 10px 20px;
-            border: none;
-            border-radius: var(--border-radius-lg);
-            cursor: pointer;
-            text-align: center;
-            transition: transform 0.25s var(--smooth-bezier), box-shadow 0.25s var(--smooth-bezier), background 0.3s ease;
-            font-size: 0.95em;
-            text-decoration: none;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        }
-        .btn-primary {
-            background: var(--game-title-blue);
-            color: white;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-        }
-        .btn-primary:hover {
-            background: #23a3dc;
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 5px 12px rgba(35, 163, 220, 0.3);
-        }
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--game-accent-orange), var(--game-title-yellow));
-            color: var(--lp-primary-text);
-            text-shadow: 1px 1px 1px rgba(255,255,255,0.4);
-        }
-        .btn-secondary:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow: 0 5px 12px rgba(255, 167, 38, 0.3);
-        }
-        .btn-telegram {
-            background: linear-gradient(135deg, #2AABEE, #229ED9);
-            color: white;
-            padding: 12px 25px;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px; /* Increased gap */
-        }
-        .btn-telegram:hover { /* Specific hover for telegram button */
-             transform: translateY(-2px) scale(1.03);
-             box-shadow: 0 5px 15px rgba(42, 171, 238, 0.4);
-        }
-        .btn-telegram svg {
-            width: 22px; /* Slightly larger */
-            height: 22px;
-            fill: white;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 100px 15px 40px;
-            position: relative;
-        }
-        .hero-title {
-            font-family: var(--font-family-title);
-            font-size: clamp(2.3rem, 8vw, 3.8rem); /* Slightly increased */
-            color: var(--lp-primary-text);
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.6), 0 0 15px var(--game-title-yellow); /* Enhanced shadow */
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-        .hero-subtitle {
-            font-size: clamp(1rem, 4.5vw, 1.2rem); /* Slightly increased */
-            color: var(--lp-secondary-text);
-            margin-bottom: 30px; /* More space */
-            max-width: 600px;
-        }
-        .hero .btn-telegram {
-            margin-top: 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-        .hero-visual {
-            margin-top: 30px; /* More space */
-            max-width: 160px; /* Slightly larger */
-            opacity: 0;
-            transform: translateY(30px) scale(0.9); /* Initial state for JS animation */
-        }
-        .hero-visual img, .hero-visual svg {
-            width: 100%;
-            height: auto;
-            animation: floatItem 4.5s ease-in-out infinite; /* Slightly slower */
-        }
-
-        @keyframes floatItem {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); } /* Increased float distance */
-        }
-
-        /* Sections General Styling */
-        .section {
-            padding: var(--lp-section-padding);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px); /* Start slightly lower */
-            transition: opacity 0.8s var(--smooth-bezier), transform 0.8s var(--smooth-bezier);
-        }
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .section-title {
-            font-family: var(--font-family-title);
-            font-size: clamp(1.9rem, 6.5vw, 2.8rem); /* Slightly increased */
-            color: var(--game-title-blue);
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
-            margin-bottom: 35px; /* More space */
-            position: relative;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px; /* Longer underline */
-            height: 3.5px; /* Thicker underline */
-            background: var(--game-accent-green);
-            margin: 10px auto 0;
-            border-radius: 2px;
-            transform: scaleX(0);
-            transition: transform 0.7s 0.3s var(--smooth-bezier); /* Delay after section text appears */
-        }
-        .section.visible .section-title::after {
-            transform: scaleX(1);
-        }
-
-        /* Card base style for transitions */
-        .feature-card, .step-card, .testimonial-card, .stat-column {
-            background: var(--lp-card-bg);
-            padding: 25px 20px;
-            border-radius: var(--border-radius-md);
-            border: 1px solid var(--lp-card-border);
-            box-shadow: var(--lp-card-shadow);
-            transition: transform 0.35s var(--smooth-bezier), box-shadow 0.35s var(--smooth-bezier);
-        }
-        .feature-card:hover, .step-card:hover, .testimonial-card:hover, .stat-column:hover {
-            transform: translateY(-6px) scale(1.02); /* More lift and slight scale */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* More pronounced shadow on hover */
-        }
-
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px; /* Increased gap */
-            margin-top: 30px;
-        }
-        /* .feature-card defined above */
-        .feature-card-icon {
-            font-size: 2.8em; /* Larger icon */
-            margin-bottom: 15px;
-            color: var(--game-accent-green);
-            transform: scale(0.8) rotate(-15deg); /* Initial state for animation */
-            opacity: 0;
-            transition: transform 0.6s 0.2s var(--smooth-bezier), opacity 0.6s 0.2s var(--smooth-bezier); /* Delay */
-        }
-        .section.visible .feature-card .feature-card-icon {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-        }
-        .feature-card h3 {
-            font-family: var(--font-family-title);
-            font-size: 1.5em;
-            color: var(--game-title-blue);
-            margin-bottom: 10px;
-        }
-        .feature-card p {
-            font-size: 0.9em;
-            color: var(--lp-secondary-text);
-            line-height: 1.6;
-        }
-
-        /* How It Works Section */
-        .how-it-works-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        /* .step-card defined above */
-        .step-card { padding: 25px 20px; }
-        .step-number {
-            font-family: var(--font-family-title);
-            font-size: 2.5em;
-            color: var(--game-accent-orange);
-            display: block;
-            margin-bottom: 10px;
-            line-height: 1;
-            transform: translateY(15px);
-            opacity: 0;
-            transition: transform 0.6s 0.3s var(--smooth-bezier), opacity 0.6s 0.3s var(--smooth-bezier);
-        }
-        .section.visible .step-card .step-number {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .step-card h3 {
-            font-family: var(--font-family-title);
-            font-size: 1.4em;
-            color: var(--game-title-blue);
-            margin-bottom: 8px;
-        }
-        .step-card p {
-            font-size: 0.85em;
-            color: var(--lp-secondary-text);
-            line-height: 1.6;
-        }
-
-        /* Testimonials Section */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-        /* .testimonial-card defined above */
-        .testimonial-card { padding: 25px; text-align: left; }
-        .testimonial-card .stars {
-            color: var(--game-title-yellow);
-            text-shadow: 0 0 5px rgba(255, 235, 59, 0.5); /* Subtle glow */
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-        .testimonial-card p.quote {
-            font-style: italic;
-            color: var(--lp-secondary-text);
-            margin-bottom: 15px;
-            font-size: 0.95em; /* Slightly larger */
-            line-height: 1.65;
-        }
-        .testimonial-card p.author {
-            font-weight: 700; /* Bolder author */
-            color: var(--game-accent-green);
-            font-size: 0.9em;
-        }
-
-        /* Stats Section */
-        .stats-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px; /* Increased gap */
-            margin-top: 30px;
-        }
-        /* .stat-column defined above */
-        .stat-column { padding: 25px 20px; }
-        .stat-column h3 {
-            font-family: var(--font-family-title);
-            font-size: 1.7em; /* Larger */
-            color: var(--game-title-blue);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .stat-list {
-            list-style: none;
-            padding: 0;
-        }
-        .stat-list li {
-            padding: 12px 8px; /* More padding */
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            font-size: 0.9em;
-            color: var(--lp-secondary-text);
-            transition: background-color 0.25s ease-in-out;
-        }
-        .stat-list li:hover {
-            background-color: rgba(0,0,0,0.025);
-        }
-        .stat-list li:last-child { border-bottom: none; }
-
-        /* Withdrawal List Specifics */
-        #withdrawal-history-lp li {
-            display: grid;
-            grid-template-columns: auto auto 1fr auto; /* date method (flexible space) amount status */
-            gap: 5px 12px; /* Increased column gap */
-            align-items: baseline;
-        }
-        #withdrawal-history-lp li .value { text-align: right; }
-
-        /* Leaderboard List Specifics */
-        #leaderboard-lp li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        #leaderboard-lp li > div:first-child { /* rank + username container */
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 1; /* Allow shrinking but not too eagerly */
-            min-width: 0; /* Allow shrinking below content size */
-        }
-        #leaderboard-lp li .username {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex-grow: 1; /* Allow username to take available space */
-        }
-        
-        .stat-list .value, .stat-list .rank, .stat-list .method { font-weight: 600; }
-        .stat-list .value { color: var(--game-accent-green); white-space: nowrap; }
-        .stat-list .rank { color: var(--game-title-orange); margin-right: 8px; white-space: nowrap;} /* Assuming orange is for ranks */
-        .stat-list .status-completed { color: var(--game-accent-green); white-space: nowrap; font-weight: 500; }
-        .stat-list .date { font-size: 0.85em; color: #6c757d; white-space: nowrap; margin-right: 5px;}
-        .stat-list .method { white-space: nowrap; color: var(--lp-primary-text); }
-
-
-        /* CTA Section */
-        .cta-section {
-            background: rgba(0,0,0,0.025); /* Very subtle shade */
-        }
-        .cta-section .section-title { color: var(--game-title-blue); }
-        .cta-section p {
-            font-size: 1.05em; /* Slightly larger */
-            color: var(--lp-secondary-text);
-            margin-bottom: 30px;
-            max-width: 550px; /* Wider */
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.75;
-        }
-         .cta-section .btn-telegram {
-            width: 100%;
-            max-width: 330px; /* Larger CTA */
-            padding: 14px 28px; /* Larger padding */
-            font-size: 1.05em;
-        }
-
-        /* Footer */
-        .footer {
-            background: #ccecf2; /* Slightly adjusted darker shade */
-            color: var(--lp-secondary-text);
-            padding: 35px 15px; /* More padding */
-            text-align: center;
-        }
-        .social-icons {
-            margin-bottom: 20px;
-        }
-        .social-icons a {
-            color: var(--lp-secondary-text);
-            margin: 0 12px; /* More spacing */
-            font-size: 1.6em; /* Larger icons */
-            transition: color 0.3s ease, transform 0.3s var(--smooth-bezier);
-        }
-        .social-icons a:hover {
-            color: var(--game-title-blue);
-            transform: translateY(-3px) scale(1.15); /* More pop */
-        }
-        .social-icons svg {
-            width: 26px;
-            height: 26px;
-            fill: currentColor;
-        }
-        .footer p {
-            font-size: 0.88em;
-        }
-
-        /* Desktop and larger tablet styles */
-        @media (min-width: 768px) {
-            :root {
-                --lp-section-padding: 70px 20px; /* Increased padding */
-            }
-            .navbar { padding: 15px 0; }
-            .navbar .logo { font-size: 2em; }
-            .navbar .btn-primary { padding: 12px 25px; font-size: 1em; }
-
-            .hero { padding-top: 130px; padding-bottom: 70px; }
-            .hero-visual { max-width: 220px; } /* Larger visual */
-
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-            .how-it-works-steps {
-                flex-direction: row;
-                justify-content: space-around;
-                gap: 30px;
-            }
-            .step-card {
-                flex-basis: calc(33.333% - 25px);
-                min-width: 230px;
-            }
-            .testimonials-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
-            }
-             .stats-container {
-                flex-direction: row;
-                gap: 35px;
-            }
-            .stat-column {
-                flex: 1;
-                min-width: 0;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .features-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .testimonials-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Specific fix for withdrawal list on very small screens if grid wraps poorly */
-        @media (max-width: 420px) {
-            #withdrawal-history-lp li {
-                grid-template-columns: repeat(2, 1fr); /* Two columns: (date method) / (amount status) */
-                row-gap: 8px;
-            }
-             #withdrawal-history-lp li .value, #withdrawal-history-lp li .status-completed {
-                grid-column: span 1; /* Each takes one cell in the new row setup */
-             }
-             #withdrawal-history-lp li .value { text-align: left; } /* Align left when stacked */
-             #withdrawal-history-lp li .status-completed { text-align: right; } /* Align right when stacked */
-
-            /* If the above is still too crowded, revert to single column flow per item */
-            /*
-            #withdrawal-history-lp li {
-                grid-template-columns: 1fr;
-                text-align: left;
-            }
-            #withdrawal-history-lp li > * { text-align: left !important; margin-left: 0 !important; }
-            */
-        }
-
-    </style>
+    <title>Sunflower Land - Farm & Build</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <nav class="navbar">
+    <header class="header">
         <div class="container">
             <div class="logo">
-                <span class="part1">SHORT</span><span class="vs">2</span><span class="part2">CRYPTO</span>
+                <span class="sunflower">🌻</span>
+                <h1>Sunflower Land</h1>
             </div>
-            <a href="https://t.me/Short_cryptoo_bot" target="_blank" class="btn btn-primary">Play Now</a>
-        </div>
-    </nav>
-
-    <header class="hero section"> <!-- Added .section for initial animation -->
-        <div class="container">
-            <h1 class="hero-title">Earn Real Crypto with Short2Crypto!</h1>
-            <p class="hero-subtitle">
-                Dive into fun mini-games, complete shortlinks, and watch ads to earn coins.
-                Convert your earnings into TON, SOL, or INR!
-            </p>
-            <a href="https://t.me/Short_cryptoo_bot" target="_blank" class="btn btn-telegram">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.58c-.23.87-1.03 1.08-1.74.7l-4.84-3.55l-2.4 2.21c-.4.38-1.01.38-1.39-.04z"></path></svg>
-                Play on Telegram
-            </a>
-            <div class="hero-visual">
-                <svg width="150" height="150" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="lpCoinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="var(--game-title-yellow)"/>
-                            <stop offset="100%" stop-color="var(--game-accent-orange)"/>
-                        </linearGradient>
-                    </defs>
-                    <circle cx="50" cy="50" r="47" fill="url(#lpCoinGradient)" filter="drop-shadow(0px 3px 5px rgba(0,0,0,0.2))"/>
-                    <circle cx="50" cy="50" r="42" fill="rgba(255,255,255,0.25)"/>
-                    <text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-family="Luckiest Guy, cursive" font-size="32" fill="var(--lp-primary-text)" stroke="rgba(255,255,255,0.7)" stroke-width="1">S2C</text>
-                </svg>
-            </div>
+            <nav class="nav">
+                <a href="#farm" class="nav-link">Farm</a>
+                <a href="#inventory" class="nav-link">Inventory</a>
+                <a href="#shop" class="nav-link">Shop</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+            </nav>
         </div>
     </header>
 
-    <section id="features" class="section">
+    <main class="main">
         <div class="container">
-            <h2 class="section-title">Game Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-card-icon">🎮</div>
-                    <h3>Exciting Mini-Games</h3>
-                    <p>Test your skills and reflexes in our fun and rewarding mini-games. Score high to earn more coins!</p>
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-icon">💰</span>
+                    <span class="stat-value" id="coins">100</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">🔗</div>
-                    <h3>Complete Shortlinks</h3>
-                    <p>Navigate through shortlinks to reach stages and claim significant coin rewards for each stage completed.</p>
+                <div class="stat">
+                    <span class="stat-icon">🌻</span>
+                    <span class="stat-value" id="sunflowers">0</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">📺</div>
-                    <h3>Watch Ads & Earn</h3>
-                    <p>Watch short advertisements and get instant coin rewards. A quick and easy way to boost your balance!</p>
+                <div class="stat">
+                    <span class="stat-icon">⚡</span>
+                    <span class="stat-value" id="energy">100</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">💸</div>
-                    <h3>Multiple Withdrawal Options</h3>
-                    <p>Cash out your earnings via TON, SOL (BEP20), or directly to your Indian bank account/UPI.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">🏆</div>
-                    <h3>Leaderboards</h3>
-                    <p>Compete with other players! Climb the leaderboards for points and referrals to earn bragging rights.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-card-icon">🤝</div>
-                    <h3>Referral Program</h3>
-                    <p>Invite your friends to Short2Crypto and earn bonus coins for every successful referral.</p>
+                <div class="stat">
+                    <span class="stat-icon">🏆</span>
+                    <span class="stat-value" id="level">1</span>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="how-it-works" class="section">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="how-it-works-steps">
-                <div class="step-card">
-                    <span class="step-number">1</span>
-                    <h3>Play & Engage</h3>
-                    <p>Participate in mini-games, complete shortlink stages, or watch advertisements within the Telegram app.</p>
+            <!-- Farm Section -->
+            <section id="farm" class="farm-section">
+                <h2>Your Farm</h2>
+                <div class="farm-grid" id="farmGrid">
+                    <!-- Farm plots will be generated by JavaScript -->
                 </div>
-                <div class="step-card">
-                    <span class="step-number">2</span>
-                    <h3>Earn Coins</h3>
-                    <p>For every activity you complete, you'll be rewarded with in-game coins. Track your balance in real-time.</p>
+                <div class="farm-actions">
+                    <button class="btn btn-primary" id="plantBtn">Plant Sunflower</button>
+                    <button class="btn btn-secondary" id="harvestBtn">Harvest All</button>
+                    <button class="btn btn-secondary" id="waterBtn">Water All</button>
                 </div>
-                <div class="step-card">
-                    <span class="step-number">3</span>
-                    <h3>Withdraw Crypto/INR</h3>
-                    <p>Once you reach the minimum threshold, withdraw your coins as TON, SOL, or INR directly to your wallet/account.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="testimonials" class="section">
-        <div class="container">
-            <h2 class="section-title">What Our Players Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"Love the light theme! This game is so much fun and I've actually cashed out. The mini-games are my favorite."</p>
-                    <p class="author">- GamerGurl_23</p>
+            <!-- Inventory Section -->
+            <section id="inventory" class="inventory-section">
+                <h2>Inventory</h2>
+                <div class="inventory-grid" id="inventoryGrid">
+                    <div class="inventory-item">
+                        <span class="item-icon">🌻</span>
+                        <span class="item-name">Sunflower Seeds</span>
+                        <span class="item-count" id="sunflowerSeeds">10</span>
+                    </div>
+                    <div class="inventory-item">
+                        <span class="item-icon">🌽</span>
+                        <span class="item-name">Corn Seeds</span>
+                        <span class="item-count" id="cornSeeds">5</span>
+                    </div>
+                    <div class="inventory-item">
+                        <span class="item-icon">🥕</span>
+                        <span class="item-name">Carrot Seeds</span>
+                        <span class="item-count" id="carrotSeeds">3</span>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★☆</div>
-                    <p class="quote">"Solid Telegram game. Easy to earn and withdrawals to TON are smooth. The daily shortlink limit is fair."</p>
-                    <p class="author">- TonCollector</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="quote">"Short2Crypto is legit! I earn a few coins daily during my commute. Great way to get some free crypto."</p>
-                    <p class="author">- CryptoCasual</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="stats" class="section">
-        <div class="container">
-            <h2 class="section-title">Platform Activity</h2>
-            <div class="stats-container">
-                <div class="stat-column">
-                    <h3>Recent Withdrawals</h3>
-                    <ul class="stat-list" id="withdrawal-history-lp">
-                        <!-- JS will populate this -->
-                    </ul>
+            <!-- Shop Section -->
+            <section id="shop" class="shop-section">
+                <h2>Shop</h2>
+                <div class="shop-grid">
+                    <div class="shop-item" data-item="sunflower-seeds" data-price="10">
+                        <span class="item-icon">🌻</span>
+                        <div class="item-info">
+                            <h3>Sunflower Seeds</h3>
+                            <p>Basic crop for beginners</p>
+                            <span class="price">10 coins</span>
+                        </div>
+                        <button class="btn btn-small">Buy</button>
+                    </div>
+                    <div class="shop-item" data-item="corn-seeds" data-price="25">
+                        <span class="item-icon">🌽</span>
+                        <div class="item-info">
+                            <h3>Corn Seeds</h3>
+                            <p>Higher value crop</p>
+                            <span class="price">25 coins</span>
+                        </div>
+                        <button class="btn btn-small">Buy</button>
+                    </div>
+                    <div class="shop-item" data-item="carrot-seeds" data-price="15">
+                        <span class="item-icon">🥕</span>
+                        <div class="item-info">
+                            <h3>Carrot Seeds</h3>
+                            <p>Quick growing crop</p>
+                            <span class="price">15 coins</span>
+                        </div>
+                        <button class="btn btn-small">Buy</button>
+                    </div>
                 </div>
-                <div class="stat-column">
-                    <h3>Top Earners (All Time)</h3>
-                    <ul class="stat-list" id="leaderboard-lp">
-                        <!-- JS will populate this -->
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section id="cta" class="section cta-section">
-        <div class="container">
-            <h2 class="section-title">Ready to Start Earning?</h2>
-            <p>
-                Join thousands of players already earning real cryptocurrency with Short2Crypto.
-                It's free, fun, and rewarding. Tap below to start your adventure!
-            </p>
-            <a href="https://t.me/Short_cryptoo_bot" target="_blank" class="btn btn-telegram">
-                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.58c-.23.87-1.03 1.08-1.74.7l-4.84-3.55l-2.4 2.21c-.4.38-1.01.38-1.39-.04z"></path></svg>
-                Play Short2Crypto Now!
-            </a>
+            <!-- Achievements Section -->
+            <section id="achievements" class="achievements-section">
+                <h2>Achievements</h2>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <div class="achievement" data-achievement="first-plant">
+                        <span class="achievement-icon">🌱</span>
+                        <div class="achievement-info">
+                            <h3>First Plant</h3>
+                            <p>Plant your first crop</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement" data-achievement="harvest-master">
+                        <span class="achievement-icon">🌾</span>
+                        <div class="achievement-info">
+                            <h3>Harvest Master</h3>
+                            <p>Harvest 50 crops</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement" data-achievement="coin-collector">
+                        <span class="achievement-icon">💰</span>
+                        <div class="achievement-info">
+                            <h3>Coin Collector</h3>
+                            <p>Earn 1000 coins</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <footer class="footer">
         <div class="container">
-            <div class="social-icons">
-                <a href="https://t.me/your_telegram_group" target="_blank" title="Telegram Group">
-                    <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.58c-.23.87-1.03 1.08-1.74.7l-4.84-3.55l-2.4 2.21c-.4.38-1.01.38-1.39-.04z"></path></svg>
-                </a>
-                <a href="https://twitter.com/your_twitter" target="_blank" title="Twitter">
-                    <svg viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.67.88-.53 1.56-1.37 1.88-2.38-.83.49-1.75.85-2.72 1.04C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.22-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.94.08c.55 1.7 2.14 2.93 4.03 2.96C5.84 18.6 3.7 19.29 1.36 19.29c-.35 0-.7-.02-1.04-.06C2.49 20.5 4.94 21 7.61 21c7.73 0 11.96-6.4 11.96-11.96v-.54A8.54 8.54 0 0 0 22.46 6z"></path></svg>
-                </a>
-                <a href="https://youtube.com/your_channel" target="_blank" title="YouTube">
-                    <svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23-1.54.91-1.77 1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15.5v-7l6 3.5l-6 3.5z"></path></svg>
-                </a>
-                 <a href="https://facebook.com/your_page" target="_blank" title="Facebook">
-                    <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z"></path></svg>
-                </a>
-            </div>
-            <p>© <span id="currentYear"></span> Short2Crypto. All Rights Reserved.</p>
-            <p style="font-size: 0.8em; opacity: 0.8; margin-top: 10px;">Note: Withdrawal history and top earner statistics are illustrative examples.</p>
+            <p>&copy; 2024 Sunflower Land. Built with HTML, CSS & JavaScript</p>
         </div>
     </footer>
 
-    <script>
-        // Intersection Observer for scroll animations
-        const sections = document.querySelectorAll('.section');
-        const heroVisual = document.querySelector('.hero-visual');
-
-        const sectionObserverOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15 // Trigger when 15% is visible, slightly more for smoother reveals
-        };
-
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Optional: unobserve after animation if it only runs once
-                    // observer.unobserve(entry.target);
-                }
-            });
-        }, sectionObserverOptions);
-
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // Hero visual entrance animation (triggered by JS after a short delay)
-        if(heroVisual){
-            // If hero section is also observed, this can be tied to its visibility
-            // For simplicity, using a timeout here.
-            // Ensure hero section itself has the .section class for initial observer trigger
-            const heroSection = document.querySelector('.hero');
-            if (heroSection && heroSection.classList.contains('section')) {
-                 // Wait for hero section to start animating in
-                const heroObserver = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting) {
-                        setTimeout(() => {
-                             heroVisual.style.opacity = '1';
-                             heroVisual.style.transform = 'translateY(0) scale(1)';
-                             heroVisual.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
-                        }, 200); // Short delay after hero text starts appearing
-                        heroObserver.unobserve(heroSection); // Animate only once
-                    }
-                }, { threshold: 0.1 });
-                heroObserver.observe(heroSection);
-            } else { // Fallback if hero section doesn't have .section class
-                 setTimeout(() => {
-                     heroVisual.style.opacity = '1';
-                     heroVisual.style.transform = 'translateY(0) scale(1)';
-                     heroVisual.style.transition = 'opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)';
-                }, 500); // Fallback delay
-            }
-        }
-
-
-        // Populate Fake Stats
-        function populateFakeStats() {
-            const withdrawalHistoryLP = document.getElementById('withdrawal-history-lp');
-            const leaderboardLP = document.getElementById('leaderboard-lp');
-            const currentYearEl = document.getElementById('currentYear');
-
-            if(currentYearEl) currentYearEl.textContent = new Date().getFullYear();
-
-            const fakeWithdrawals = [
-                { date: "Oct 23", method: "TON", amount: "250 C", status: "Done" },
-                { date: "Oct 22", method: "SOL", amount: "310 C", status: "Done" },
-                { date: "Oct 22", method: "INR", amount: "180 C", status: "Done" },
-                { date: "Oct 21", method: "TON", amount: "450 C", status: "Done" },
-                { date: "Oct 20", method: "SOL", amount: "200 C", status: "Done" }
-            ];
-
-            const fakeLeaderboard = [
-                { rank: 1, name: "CryptoWiz", coins: "15.8k C" },
-                { rank: 2, name: "CoinMasterPro", coins: "14.2k C" },
-                { rank: 3, name: "SatoshiPlaysVeryLongName", coins: "12.9k C" },
-                { rank: 4, name: "PixelProGamer", coins: "10.5k C" },
-                { rank: 5, name: "ByteKing", coins: "9.7k C" }
-            ];
-
-            if (withdrawalHistoryLP) {
-                withdrawalHistoryLP.innerHTML = fakeWithdrawals.map(w => `
-                    <li>
-                        <span class="date">${w.date}</span>
-                        <span class="method">${w.method}</span>
-                        <span class="value">${w.amount}</span>
-                        <span class="status-completed">${w.status}</span>
-                    </li>
-                `).join('');
-            }
-
-            if (leaderboardLP) {
-                leaderboardLP.innerHTML = fakeLeaderboard.map(p => `
-                    <li>
-                        <div> <!-- Container for rank and username -->
-                           <span class="rank">#${p.rank}</span>
-                           <span class="username">${p.name}</span>
-                        </div>
-                        <span class="value">${p.coins}</span>
-                    </li>
-                `).join('');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            populateFakeStats();
-            // Manually trigger visibility for the hero section if it's at the top
-            // and might not be "intersecting" initially by some browsers.
-            const heroSection = document.querySelector('.hero.section');
-            if (heroSection && window.scrollY < 50) { // Simple check if near top
-                 heroSection.classList.add('visible');
-            }
-        });
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
